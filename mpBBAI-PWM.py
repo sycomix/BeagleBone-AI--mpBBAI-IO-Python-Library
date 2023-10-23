@@ -12,21 +12,18 @@
 import os
 
 def setup():
-    pwm = open("/sys/class/pwm/pwm-0:0/enable", "w");
-    pwm.seek(0,0);
-    pwm.write("1");
-    pwm.close();
-    period = open("/sys/class/pwm/pwm-0:0/period", "w");
-    period.seek(0,0);
-    period.write("2500");
-    period.close();
+    with open("/sys/class/pwm/pwm-0:0/enable", "w") as pwm:
+        pwm.seek(0,0);
+        pwm.write("1");
+    with open("/sys/class/pwm/pwm-0:0/period", "w") as period:
+        period.seek(0,0);
+        period.write("2500");
 
 def pwm_duty(the_duty_multiplier):
 
-    duty = open("/sys/class/pwm/pwm-0:0/duty_cycle", "w");
-    duty.seek(0,0);
-    duty.write(str(100*the_duty_multiplier));
-    duty.close();
+    with open("/sys/class/pwm/pwm-0:0/duty_cycle", "w") as duty:
+        duty.seek(0,0);
+        duty.write(str(100*the_duty_multiplier));
 
 setup()
 count =3;

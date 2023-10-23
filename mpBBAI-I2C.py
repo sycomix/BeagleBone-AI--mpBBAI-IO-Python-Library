@@ -39,11 +39,8 @@ bus.write_i2c_block_data(DEFAULT_ADDRESS ,WRITEDAC_ABCD,[0,0])
 
 
 def set_voltage(ValueDAC,SelectedChannel):
-    if ValueDAC > MaxValueDac:
-       ValueDAC = MaxValueDac;
-    if ValueDAC < MinValueDac:
-       ValueDAC = MinValueDac;
-
+    ValueDAC = min(ValueDAC, MaxValueDac)
+    ValueDAC = max(ValueDAC, MinValueDac)
     Data = [(ValueDAC >> 8) & 0xFF, (ValueDAC) & 0xFF]
 
     if SelectedChannel == 1 :
